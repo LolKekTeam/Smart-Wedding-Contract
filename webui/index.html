@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contract</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+
+        <h1>Wedding Contract</h1>
+
+        <h2 id="Husband"></h2>
+
+        
+
+        <label for="name1" class="col-lg-2 control-label">Husband Address</label>
+        <input id="address1" type="text">
+
+
+
+        <h2 id="Wife"></h2>
+
+
+
+        <label for="name2" class="col-lg-2 control-label">Wife Address</label>
+        <input id="address2" type="text">
+
+
+
+        <h2 id="Own"></h2>
+
+
+
+        <label for="name3" class="col-lg-2 control-label">Own Address</label>
+        <input id="address3" type="text">
+
+        <button id="button6">Add information</button>
+
+        <form><button id="button1">50/50</button></form>
+        <form><button id="button2">coefficient system</button></form>
+        <form><button id="button3">fine tuning</button></form>
+        <label for="name4" class="col-lg-2 control-label">If you want "fine tuning", please, enter the percaint of husband:</label>
+        <input id="koef" type="text">
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script>
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        var CoursetroContract = web3.eth.contract([
+            {
+                "constant": false,
+                "inputs": [],
+                "name": "razvod50na50",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [],
+                "name": "razvodAuto",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [],
+                "name": "razvodKoef",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "amount",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "send_h",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "amount",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "send_t",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "amount",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "send_w",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "_addOne",
+                        "type": "address"
+                    },
+                    {
+                        "name": "_addTwo",
+                        "type": "address"
+                    },
+                    {
+                        "name": "_own",
+                        "type": "address"
+                    },
+                    {
+                        "name": "_k",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "setAddresses",
+                "outputs": [],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "getChoice",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "uint8"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "getP1",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "getP2",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "getP3",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "getRazvod",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }
+        ]);
+
+        var Coursetro = CoursetroContract.at('0xadcac80882329397502c2f96dc2455ad9218b4d6');
+        console.log(Coursetro);
+
+    </script>
+
+    <script>
+
+        // Previous code removed for brevity
+
+        Coursetro.getRazvod(function (error, result) {
+            if (!error) {
+                $("#Husband").html('Husband s balance:' + result[0] + ' Wife s balance:' + result[1] + ' Own balance:' + result[2]);
+                console.log(result);
+            }
+            else
+                console.error(error);
+        });
+
+        $("#button6").click(function () {
+            Coursetro.setAddresses($("#address1").val(), $("#address2").val(), $("#address3").val(), $("#koef").val());
+        });
+        $("#button1").click(function () {
+            Coursetro.razvod50na50();
+        });
+        $("#button2").click(function () {
+            Coursetro.razvodAuto();
+        });
+        $("#button3").click(function () {
+            Coursetro.razvodKoef();
+        });
+
+    </script>
+
+</body>
+</html>
