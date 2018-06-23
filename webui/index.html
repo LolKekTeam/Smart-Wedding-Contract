@@ -18,34 +18,20 @@
 
         <h2 id="Husband"></h2>
 
-
-
         <label for="name" class="col-lg-2 control-label">Husband Address</label>
         <input id="address1" type="text">
 
-
-
-        <h2 id="Wife"></h2>
-
-
-
         <label for="name" class="col-lg-2 control-label">Wife Address</label>
         <input id="address2" type="text">
-
-
-
-        <h2 id="Own"></h2>
-
-
-
+        
         <label for="name" class="col-lg-2 control-label">Own Address</label>
         <input id="address3" type="text">
 
-
-        <form><button id="button4">Add addresses and coefficiant</button></form>
-        <form><button id="button1">50/50</button></form>
-        <form><button id="button2">coefficient system</button></form>
-        <form><button id="button3">fine tuning</button></form>
+        <form><button id="button1">Add addresses and coefficiant</button></form>
+        <form><button id="button2">50/50</button></form>
+        <form><button id="button3">coefficient system</button></form>
+        <form><button id="button4">fine tuning</button></form>
+        
         <label for="name" class="col-lg-2 control-label">If you want "fine tuning", please, enter the percaint of husband:</label>
         <input id="koef" type="text">
 
@@ -134,32 +120,6 @@
                 "type": "function"
             },
             {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_addOne",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_addTwo",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_own",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_k",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "setAddresses",
-                "outputs": [],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
                 "constant": true,
                 "inputs": [],
                 "name": "getChoice",
@@ -221,15 +181,15 @@
                 "name": "getRazvod",
                 "outputs": [
                     {
-                        "name": "",
+                        "name": "b1",
                         "type": "uint256"
                     },
                     {
-                        "name": "",
+                        "name": "b2",
                         "type": "uint256"
                     },
                     {
-                        "name": "",
+                        "name": "b3",
                         "type": "uint256"
                     }
                 ],
@@ -239,7 +199,7 @@
             }
         ]);
 
-        var Coursetro = CoursetroContract.at('0x19150eb1bb7cb515046516bf6775ccf97ffe9cf0');
+        var Coursetro = CoursetroContract.at('0x7ed7dab83a5f1783711730bd983f5ffa81f686f4');
         console.log(Coursetro);
 
     </script>
@@ -247,21 +207,8 @@
     <script>
 
         // Previous code removed for brevity
-
         
-
-        $("#button4").click(function () {
-            Coursetro.setAddresses($("#address1").val(), $("#address2").val(), $("#address3").val(), $("#koef").val());
-        });
-        $("#button1").click(function () {
-            Coursetro.razvod50na50();
-        });
-        $("#button2").click(function () {
-            Coursetro.razvodAuto();
-        });
-        $("#button3").click(function () {
-            Coursetro.razvodKoef();
-        });
+        
         Coursetro.getRazvod(function (error, result) {
             if (!error) {
                 $("#Husband").html('Husband s balance:' + result[0] + '; Wife s balance:' + result[1] + '; Own balance:' + result[2]);
@@ -269,7 +216,24 @@
             }
             else
                 console.error(error);
-        });
+         });
+
+            $("#button1").click(function () {
+                Coursetro.setAddresses($("#address1").val(), $("#address2").val(), $("#address3").val(), $("#koef").val());
+            });
+
+            $("#button2").click(function () {
+                Coursetro.razvod50na50();
+            });
+
+            $("#button3").click(function () {
+                Coursetro.razvodAuto();
+            });
+
+            $("#button4").click(function () {
+                Coursetro.razvodKoef();
+             });
+        
 
     </script>
 
