@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,9 +18,9 @@
 
         <h2 id="Husband"></h2>
 
-        
 
-        <label for="name1" class="col-lg-2 control-label">Husband Address</label>
+
+        <label for="name" class="col-lg-2 control-label">Husband Address</label>
         <input id="address1" type="text">
 
 
@@ -29,7 +29,7 @@
 
 
 
-        <label for="name2" class="col-lg-2 control-label">Wife Address</label>
+        <label for="name" class="col-lg-2 control-label">Wife Address</label>
         <input id="address2" type="text">
 
 
@@ -38,15 +38,15 @@
 
 
 
-        <label for="name3" class="col-lg-2 control-label">Own Address</label>
+        <label for="name" class="col-lg-2 control-label">Own Address</label>
         <input id="address3" type="text">
 
-        <button id="button6">Add information</button>
 
+        <form><button id="button4">Add addresses and coefficiant</button></form>
         <form><button id="button1">50/50</button></form>
         <form><button id="button2">coefficient system</button></form>
         <form><button id="button3">fine tuning</button></form>
-        <label for="name4" class="col-lg-2 control-label">If you want "fine tuning", please, enter the percaint of husband:</label>
+        <label for="name" class="col-lg-2 control-label">If you want "fine tuning", please, enter the percaint of husband:</label>
         <input id="koef" type="text">
 
     </div>
@@ -239,7 +239,7 @@
             }
         ]);
 
-        var Coursetro = CoursetroContract.at('0xadcac80882329397502c2f96dc2455ad9218b4d6');
+        var Coursetro = CoursetroContract.at('0x19150eb1bb7cb515046516bf6775ccf97ffe9cf0');
         console.log(Coursetro);
 
     </script>
@@ -248,16 +248,9 @@
 
         // Previous code removed for brevity
 
-        Coursetro.getRazvod(function (error, result) {
-            if (!error) {
-                $("#Husband").html('Husband s balance:' + result[0] + ' Wife s balance:' + result[1] + ' Own balance:' + result[2]);
-                console.log(result);
-            }
-            else
-                console.error(error);
-        });
+        
 
-        $("#button6").click(function () {
+        $("#button4").click(function () {
             Coursetro.setAddresses($("#address1").val(), $("#address2").val(), $("#address3").val(), $("#koef").val());
         });
         $("#button1").click(function () {
@@ -268,6 +261,14 @@
         });
         $("#button3").click(function () {
             Coursetro.razvodKoef();
+        });
+        Coursetro.getRazvod(function (error, result) {
+            if (!error) {
+                $("#Husband").html('Husband s balance:' + result[0] + '; Wife s balance:' + result[1] + '; Own balance:' + result[2]);
+                console.log(result);
+            }
+            else
+                console.error(error);
         });
 
     </script>
